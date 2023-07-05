@@ -50,6 +50,9 @@ class ResearchPageTag(TaggedItemBase):
 class ResearchPage(Page):
     date = models.DateField("Post date")
     abstract = models.TextField()
+    paper_url = models.URLField(blank=True)
+    code_url = models.URLField(blank=True)
+    project_url = models.URLField(blank=True)
     body = StreamField([
         ('heading', blocks.CharBlock(form_classname="title")),
         ('paragraph', blocks.TextBlock()),
@@ -77,6 +80,11 @@ class ResearchPage(Page):
             FieldPanel('tags'),
             FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
         ], heading="Research information"),
+        FieldRowPanel([
+            FieldPanel('project_url'),
+            FieldPanel('paper_url'),
+            FieldPanel('code_url'),
+        ], heading="URL's information"),
         FieldPanel('abstract'),
         FieldPanel('body'),
         InlinePanel('gallery_images', label="Gallery images"),

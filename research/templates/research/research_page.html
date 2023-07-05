@@ -18,6 +18,19 @@
                     <div class="">{{ page.abstract }}</div>
                 </div>
             </div>
+            <div class="columns">
+                <div class="column is-10 is-offset-1">
+                    {% if page.project_url %}
+                            <a class="button" href="{{ page.project_url }}">Project</a>
+                    {% endif %}
+                    {% if page.paper_url %}
+                            <a class="button" href="{{ page.paper_url }}">Paper</a>
+                    {% endif %}
+                    {% if page.code_url %}
+                            <a class="button" href="{{ page.code_url }}">Code</a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 </section> 
@@ -48,28 +61,25 @@
             <div class="is-divider"></div>
 
 
-
-
-            {% for item in page.gallery_images.all %}
-                <div style="float: left; margin: 10px">
-                    {% image item.image fill-320x240 %}
-                    <p>{{ item.caption }}</p>
-                </div>
-            {% endfor %}
-
             {% with tags=page.tags.all %}
                 {% if tags %}
-                    <div class="tags">
-                        <h3>Tags:       </h3>
-                        {% for tag in tags %}
-                            <span class="tag is-primary"><a href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a></span>
-                        {% endfor %}
+                    <div class="columns">
+                        <div class="column is-8 is-offset-2">
+                            {% for tag in tags %}
+                            <a class="button" href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a>
+                            {% endfor %}
+                        </div>
                     </div>
                 {% endif %}
             {% endwith %}
 
+            <hr>
+            <div class="columns">
+                <div class="column is-8 is-offset-2 has-text-centered">
+                    <p><a href="{{ page.get_parent.url }}">Regresar a Research</a></p>
+                </div>
+            </div>
 
-            <p><a href="{{ page.get_parent.url }}">Regresar a Research</a></p>
 
 
         </div>

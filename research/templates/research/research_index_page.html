@@ -28,17 +28,30 @@
     {% with post=post.specific %}
 
         <section class="hero">
-            <div class="hero-body ">
+            <div class="hero-body pb-1">
                 <div class="container">
 
                     <div class="columns">
                         <div class="column is-10 ">
                             <div class="content is-medium">
-                                <h3 class="subtitle is-6">May 25, 2023</h3>
+                                <h3 class="subtitle is-6">{{ post.date}}</h3>
                                 <h2 class="title is-2"><a href="{% pageurl post %}">{{ post.title }}</a></h2>
                                 <div class="is-divider"></div>
                                 <p class="subtitle is-6">{{ post.abstract}}</p>
                             </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-10 ">
+                            {% if post.project_url %}
+                                    <a class="button" href="{{ post.project_url }}">Project</a>
+                            {% endif %}
+                            {% if post.paper_url %}
+                                    <a class="button" href="{{ post.paper_url }}">Paper</a>
+                            {% endif %}
+                            {% if post.code_url %}
+                                    <a class="button" href="{{ post.code_url }}">Code</a>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="is-divider"></div>
