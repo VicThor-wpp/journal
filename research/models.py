@@ -58,6 +58,7 @@ class ResearchPage(Page):
         ('paragraph', blocks.TextBlock()),
         ('image', ImageChooserBlock()),
         ("code", CodeBlock(label='Code')),
+        ('list', blocks.ListBlock(blocks.CharBlock(label="Fact"))),
     ], use_json_field=True)
     tags = ClusterTaggableManager(through=ResearchPageTag, blank=True)
     categories = ParentalManyToManyField('research.ResearchCategory', blank=True)

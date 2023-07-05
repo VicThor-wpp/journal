@@ -5,47 +5,43 @@
 {% block body_class %}template-blogpage{% endblock %}
 
 {% block content %}
-    <h1>{{ page.title }}</h1>
-    <p class="meta">{{ page.date }}</p>
-    {% with categories=page.categories.all %}
-        {% if categories %}
-            <h3>Posted in:</h3>
-            <ul>
-                {% for category in categories %}
-                    <li style="display: inline">
-                        {% image category.icon fill-32x32 style="vertical-align: middle" %}
-                        {{ category.name }}
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-
-    <div class="intro">{{ page.intro }}</div>
-
-    {{ page.body|richtext }}
-
-    {% for item in page.gallery_images.all %}
-        <div style="float: left; margin: 10px">
-            {% image item.image fill-320x240 %}
-            <p>{{ item.caption }}</p>
-        </div>
-    {% endfor %}
-
-    {% with tags=page.tags.all %}
-        {% if tags %}
-            <div class="tags">
-                <h3>Tags</h3>
-                {% for tag in tags %}
-                    <a href="{% slugurl 'tags' %}?tag={{ tag }}"><button type="button">{{ tag }}</button></a>
-                {% endfor %}
+<section class="hero is-link">
+    <div class="hero-body ">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-10 is-offset-1">
+                    <h1 class="title">{{ page.title }}</h1>
+                    <p class="meta">{{ page.date }}</p>
+                </div>
             </div>
-        {% endif %}
-    {% endwith %}
+        </div>
+    </div>
+</section> 
 
+<section class="hero">
+    <div class="hero-body ">
+        <div class="container">
+            {{ page.contents }}
+        </div>
+    </div>
+</section>          
 
-    <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+{% with tags=page.tags.all %}
+{% if tags %}
+    <div class="columns">
+        <div class="column is-8 is-offset-2">
+            {% for tag in tags %}
+            <a class="button" href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+{% endwith %}
 
-
-    
+<hr>
+<div class="columns">
+<div class="column is-8 is-offset-2 has-text-centered">
+    <p><a href="{{ page.get_parent.url }}">Regresar a Research</a></p>
+</div>
+</div>
 {% endblock %}

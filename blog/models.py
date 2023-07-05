@@ -5,8 +5,10 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
+from wagtail import blocks
+from wagtail.embeds.blocks import EmbedBlock
 from wagtail.models import Page, Orderable
-from wagtail.fields import RichTextField
+from wagtail.fields import RichTextField, StreamField
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.search import index
 
@@ -47,6 +49,12 @@ class BlogPageTag(TaggedItemBase):
 class BlogPage(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
+    contents = StreamField([
+        ('heading', blocks.CharBlock(form_classname="title")),
+        ('paragraph', blocks.TextBlock(blank=True)),
+        ('embed', EmbedBlock(blank=True)),
+        ('link', blocks.URLBlock(blank=True)),
+    ], use_json_field=True, blank=True)
     body = RichTextField(blank=True)
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
     categories = ParentalManyToManyField('blog.BlogCategory', blank=True)
@@ -71,6 +79,7 @@ class BlogPage(Page):
         ], heading="Blog information"),
         FieldPanel('intro'),
         FieldPanel('body'),
+        FieldPanel('contents'),
         InlinePanel('gallery_images', label="Gallery images"),
     ]
 
