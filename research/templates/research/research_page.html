@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-blogpage{% endblock %}
+
+{% block content %}
+    
+
+<section class="hero is-link">
+    <div class="hero-body ">
+        <div class="container">
+            
+            <div class="columns">
+                <div class="column is-10 is-offset-1">
+                    <h1 class="title">{{ page.title }}</h1>
+                    <p class="meta">{{ page.date }}</p>
+                    <div class="">{{ page.abstract }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 
+
+<section class="hero ">
+    <div class="hero-body ">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8 is-offset-2">
+                    <div class="content is-medium">
+                        {% for block in page.body %}
+                            {% with block_type=block.block_type %}
+
+                                {% if block.block_type == 'heading' %}
+                                    <h2 class="subtitle">{{ block.value }}</h2>
+                                {% elif block.block_type == 'paragraph' %}
+                                    <p class="is-5">{{ block.value|richtext  }}</p>
+                                {% else %}
+                                    <section class="block-{{ block.block_type }}">
+                                        {% include_block block %}
+                                    </section>
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="is-divider"></div>
+
+
+
+
+            {% for item in page.gallery_images.all %}
+                <div style="float: left; margin: 10px">
+                    {% image item.image fill-320x240 %}
+                    <p>{{ item.caption }}</p>
+                </div>
+            {% endfor %}
+
+            {% with tags=page.tags.all %}
+                {% if tags %}
+                    <div class="tags">
+                        <h3>Tags:       </h3>
+                        {% for tag in tags %}
+                            <span class="tag is-primary"><a href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a></span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+
+            <p><a href="{{ page.get_parent.url }}">Regresar a Research</a></p>
+
+
+        </div>
+    </div>
+</section> 
+{% endblock %}

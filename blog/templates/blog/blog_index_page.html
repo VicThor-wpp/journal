@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+{% block content %}
+
+{% comment %} Cabecera intro {% endcomment %}
+<section class="hero is-success">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                {{ page.title }}
+            </h1>
+            <h2 class="subtitle">
+                {{ page.intro|richtext }}
+            </h2>
+        </div>
+    </div>
+</section>
+
+
+{% comment %} Hagase el loop {% endcomment %}
+
+{% for post in blogpages %}
+    {% with post=post.specific %}
+
+        <section class="hero">
+            <div class="hero-body ">
+                <div class="container">
+
+                    <div class="columns">
+                        <div class="column is-8 ">
+                            <div class="content is-medium">
+                                <h3 class="subtitle is-6">May 25, 2023</h3>
+                                <h2 class="title"><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+                                <p>{{ post.body|richtext }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="is-divider"></div>
+                </div>
+            </div>
+        </section>
+
+    {% endwith %}
+{% endfor %}
+{% endblock %}
