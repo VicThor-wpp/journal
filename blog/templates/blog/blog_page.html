@@ -28,6 +28,10 @@
                     <div class="block">
                         <p>{{ block.value }}</p>
                     </div>
+                {% elif block.block_type == 'link'%}
+                    <div class="block">
+                        <a href="{{ block.value }}">{{ block.value }}</p>
+                    </div>
                 {% else %}
                     <section class="block-{{ block.block_type }}">
                         {% include_block block %}

@@ -48,11 +48,11 @@ class BlogPageTag(TaggedItemBase):
 
 class BlogPage(Page):
     date = models.DateField("Post date")
-    intro = models.CharField(max_length=250, blank=True)
+    intro = models.CharField(max_length=1500, blank=True)
     contents = StreamField([
         ('heading', blocks.CharBlock(form_classname="title")),
         ('paragraph', blocks.TextBlock(blank=True)),
-        ('embed', EmbedBlock(blank=True, max_width=800, max_height=400)),
+        ('embed', EmbedBlock(blank=True)),
         ('link', blocks.URLBlock(blank=True)),
     ], use_json_field=True, blank=True)
     body = RichTextField(blank=True)

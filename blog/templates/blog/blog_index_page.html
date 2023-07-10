@@ -37,17 +37,34 @@
                             <div class="content is-medium">
                                 <h3 class="subtitle is-6">{{ post.date }}</h3>
                                 <h2 class="title is-2"><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-                                <h3 class="subtitle is-6">{{ post.intro }}</h3>
+                                <div class="block">
+                                    <p class="subtitle is-6">{{ post.intro }}</p>
+                                </div>
                                 {% for block in post.contents %}
-                                    {% if block.block_type == 'embed' %}
-                                        {{ block.value }}
-                                    {% else %}
-                                    {% endif %}
+                                {% if block.block_type == 'embed' %}
+                                    {{ block.value }}
+                                {% else %}
+                                {% endif %}
                                 {% endfor %}
+                                
                             </div>
                         </div>
                     </div>
-                    <div class="is-divider"></div>
+                    {% with categories=post.categories.all %}
+                        {% if categories %}
+                            <div class="columns">
+                                {% for category in categories %}
+                                <div class="block">
+                                    <span class="tag">
+                                        {{category}}
+                                    </span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                        {% comment %} <a class="button" href={{post.url}}>Enlace al contenido</a> {% endcomment %}
+                    <hr>
                 </div>
             </div>
         </section>

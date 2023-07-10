@@ -1,8 +1,38 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load wagtailcore_tags %}
 
-{% block body_class %}template-homepage{% endblock %}
+{% block body_class %}
+  template-homepage
+{% endblock %}
 
 {% block content %}
-    {{ page.body|richtext }}
+  {{ page.body|richtext }}
+
+  <body>
+    <section class="hero is-success is-fullheight">
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <div class="column is-4 is-offset-4">
+            <h3 class="title has-text-black">VIP</h3>
+            <hr class="login-hr" />
+            <p class="subtitle has-text-black">Tenes credenciales?</p>
+            <div class="box">
+              <form>
+                <div class="field">
+                  <div class="control">
+                    <input class="input is-large" type="password" placeholder="Your Password" />
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="checkbox"><input type="checkbox" />Remember me</label>
+                </div>
+                <button class="button is-block is-info is-large is-fullwidth">Login <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+              </form>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
 {% endblock %}
