@@ -176,3 +176,5 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
+WAGTAILEMBEDS_RESPONSIVE_HTML = True
+

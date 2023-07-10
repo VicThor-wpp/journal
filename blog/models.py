@@ -48,14 +48,15 @@ class BlogPageTag(TaggedItemBase):
 
 class BlogPage(Page):
     date = models.DateField("Post date")
-    intro = models.CharField(max_length=250)
+    intro = models.CharField(max_length=250, blank=True)
     contents = StreamField([
         ('heading', blocks.CharBlock(form_classname="title")),
         ('paragraph', blocks.TextBlock(blank=True)),
-        ('embed', EmbedBlock(blank=True)),
+        ('embed', EmbedBlock(blank=True, max_width=800, max_height=400)),
         ('link', blocks.URLBlock(blank=True)),
     ], use_json_field=True, blank=True)
     body = RichTextField(blank=True)
+    url = models.URLField(blank=True)
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
     categories = ParentalManyToManyField('blog.BlogCategory', blank=True)
 
@@ -68,7 +69,7 @@ class BlogPage(Page):
         
     search_fields = Page.search_fields + [
         index.SearchField('intro'),
-        index.SearchField('body'),
+        index.SearchField('contents'),
     ]
 
     content_panels = Page.content_panels + [
@@ -78,7 +79,8 @@ class BlogPage(Page):
             FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
         ], heading="Blog information"),
         FieldPanel('intro'),
-        FieldPanel('body'),
+        FieldPanel('url'),
+        #FieldPanel('body'),
         FieldPanel('contents'),
         InlinePanel('gallery_images', label="Gallery images"),
     ]

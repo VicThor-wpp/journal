@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags%}
 
 {% block body_class %}template-blogpage{% endblock %}
 
@@ -21,7 +21,21 @@
 <section class="hero">
     <div class="hero-body ">
         <div class="container">
-            {{ page.contents }}
+            {% for block in page.contents %}
+                {% if block.block_type == 'heading' %}
+                    <h2 class="title">{{ block.value }}</h2>
+                {% elif block.block_type == 'paragraph'%}
+                    <div class="block">
+                        <p>{{ block.value }}</p>
+                    </div>
+                {% else %}
+                    <section class="block-{{ block.block_type }}">
+                        {% include_block block %}
+                    </section>
+                {% endif %}
+            {% endfor %}
+
+            {% comment %} {{ page.contents }} {% endcomment %}
         </div>
     </div>
 </section>          

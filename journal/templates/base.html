@@ -24,10 +24,11 @@
         {% endif %}
 
         {# Global stylesheets #}
-        <link href=" https://cdn.jsdelivr.net/npm/bulma/css/bulma.min.css " rel="stylesheet">
-        {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css/journal.css' %}"> {% endcomment %}
-
+        {% comment %} <link href=" https://cdn.jsdelivr.net/npm/bulma/css/bulma.min.css " rel="stylesheet"> {% endcomment %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bulma.css' %}">
+        
         {% block extra_css %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/journal.css' %}">
         {# Override this in templates to add extra stylesheets #}
         {% endblock %}
     </head>
@@ -38,7 +39,8 @@
             <div class="container">
             <div class="navbar-brand">
                 <a class="navbar-item" href="../">
-                <img src="../images/bulma.png" alt="AI">
+                {% comment %} <img src="../images/bulma.png" alt="AI"> {% endcomment %}
+                    <p class='title'>Journal - IA</p>
                 </a>
                 <span class="navbar-burger burger" data-target="navbarMenu">
                 <span></span>
@@ -61,9 +63,6 @@
                 </a>
                 <a href="/materiales" class="navbar-item is-size-5 has-text-weight-semibold">
                     Materiales
-                </a>
-                <a href="/delusion" class="navbar-item is-size-5 has-text-weight-semibold">
-                    Delusion
                 </a>
                 </div>
             </div>

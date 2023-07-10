@@ -32,19 +32,18 @@
                 <div class="container">
 
                     <div class="columns">
-                        <div class="column is-10 ">
+
+                        <div class="column is-10">
                             <div class="content is-medium">
                                 <h3 class="subtitle is-6">{{ post.date }}</h3>
                                 <h2 class="title is-2"><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-                                {{ post.contents }}
-                                {% comment %} {% for block in post.contents %}
-                                    {% with block_type=block.block_type %}
-                                        {% if block.block_type == 'embed' %}
-                                            <p class="is-5">{{ block.value }}</p>
-                                        {% else %}
-                                        {% endif %}
-                                    {% endwith %}                
-                                {% endfor %} {% endcomment %}
+                                <h3 class="subtitle is-6">{{ post.intro }}</h3>
+                                {% for block in post.contents %}
+                                    {% if block.block_type == 'embed' %}
+                                        {{ block.value }}
+                                    {% else %}
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
